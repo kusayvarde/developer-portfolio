@@ -372,15 +372,34 @@ profile: "/your-image-name.png"; // or .jpg, .webp
 
 ### 🐳 Deploy with Docker
 
+Use `docker-compose.prod.yml` — the default `docker-compose.yml` also defines a `dev`
+service that bind-mounts your source and runs `next dev`, which you do not want on a server.
+
 ```bash
-# Build production image
-docker build -t developer-portfolio:prod -f Dockerfile.prod .
+# 1. Create the .env file (no spaces around '=')
+cp .env.example .env
+nano .env
 
-# Run
-docker run -d -p 80:3000 --name portfolio developer-portfolio:prod
+# 2. Build and start
+docker compose -f docker-compose.prod.yml up -d --build
 
-# Or use Docker Compose
-docker-compose -f docker-compose.prod.yml up -d
+# 3. Check it came up
+docker compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml logs -f
+```
+
+The site is then served on port **3005**. Put Nginx or Caddy in front of it for a
+domain and HTTPS.
+
+> **Note**: `NEXT_PUBLIC_GTM` and `NEXT_PUBLIC_APP_URL` are baked into the client bundle
+> at build time, so they are passed as build args. If you change either one, you must
+> rebuild (`up -d --build`) — restarting the container is not enough.
+
+**Updating after a content change:**
+
+```bash
+git pull
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ---

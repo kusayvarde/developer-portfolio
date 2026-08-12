@@ -1,20 +1,30 @@
 FROM node:20 AS base
 WORKDIR /app
 RUN npm i -g pnpm
-RUN npm i -g next
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 COPY . .
+
+# NEXT_PUBLIC_* values are inlined into the client bundle at build time,
+# so they must be present here — runtime env vars are too late for them.
+ARG NEXT_PUBLIC_GTM
+ARG NEXT_PUBLIC_APP_URL
+ENV NEXT_PUBLIC_GTM=$NEXT_PUBLIC_GTM
+ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+
 RUN pnpm build
 
-FROM node:20-alpine3.19 as release
+FROM node:20-alpine3.19 AS release
 WORKDIR /app
+ENV NODE_ENV=production
 RUN npm i -g pnpm
 
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package.json ./package.json
+COPY --from=base /app/next.config.js ./next.config.js
+COPY --from=base /app/public ./public
 COPY --from=base /app/.next ./.next
 
 EXPOSE 3000
