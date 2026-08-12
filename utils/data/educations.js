@@ -1,20 +1,20 @@
 export const educations = [
   {
     id: 1,
-    title: "Bachelor Degree",
-    duration: "2020 - Present",
-    institution: "National University of Bangladesh",
+    title: "B.Sc. in Computer Software Engineering",
+    duration: "2023 - 2027",
+    institution: "Fırat University",
   },
   {
     id: 2,
-    title: "Higher Secondary Certificate",
-    duration: "2018 - 2020",
-    institution: "Noakhali Islamia Kamil Madrasah",
+    title: "Web Applications for Everybody",
+    duration: "2024",
+    institution: "University of Michigan (Coursera)",
   },
   {
     id: 3,
-    title: "Secondary School Certificate",
-    duration: "2008 - 2018",
-    institution: "Baitus Saif Islamia Madrasah",
+    title: "Social Media Marketing Professional Certificate",
+    duration: "2023",
+    institution: "Meta (Coursera)",
   }
 ]

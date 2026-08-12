@@ -1,11 +1,11 @@
 <p align="center" width="100%">
-    <img height="100" src="https://github.com/said7388/developer-portfolio/assets/77630868/c0064908-cd5f-4751-a77c-eba90a62b55c">
+    <img height="100" src="https://github.com/kusayvarde/developer-portfolio/assets/77630868/c0064908-cd5f-4751-a77c-eba90a62b55c">
 </p>
 
-<h1 align="center">Developer Portfolio</h1>
+<h1 align="center">Kusay Varde — Developer Portfolio</h1>
 
 <p align="center">
-  <strong>A modern, responsive, and customizable portfolio template for developers and freelancers</strong>
+  <strong>Personal portfolio of Kusay Varde — R&D Developer & Software Engineering student</strong>
 </p>
 
 <p align="center">
@@ -28,7 +28,15 @@
 
 ## Overview
 
-A professional portfolio template built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**. Features a modern App Router architecture, server components, and data-driven configuration for easy customization.
+My personal portfolio, built with **Next.js 16**, **React 19**, and **Tailwind CSS 4** on top of the [developer-portfolio](https://github.com/said7388/developer-portfolio) template by Abu Said. Modern App Router architecture, server components, and data-driven configuration.
+
+**About me:** I'm a Software Engineering student at Fırat University and an R&D Developer at ROBOTAT Corporation and Growger, working on AI systems, conversational agents, and data analysis (mining, cleaning, and exploratory analysis). I love to learn something new every single day.
+
+- 🤖 **Dalelo chatbot** — a conversational assistant for [dalelo.com](https://www.dalelo.com) that finds the best ad listings and handles exchange rates through natural conversation
+- 📄 **ShamHR chatbot** — an assistant for [shamhr.com](https://shamhr.com) that helps job seekers create, review, refine, and improve their resumes
+- 🏆 **TÜBİTAK 2209-A** — funded research project: an AI-supported web platform for rapid post-earthquake aid and coordination
+
+📍 Istanbul, Türkiye · [GitHub](https://github.com/kusayvarde) · [LinkedIn](https://www.linkedin.com/in/kusay-varde-050985300/)
 
 ---
 
@@ -39,8 +47,8 @@ A professional portfolio template built with **Next.js 16**, **React 19**, and *
 </p>
 
 <p align="center">
-  <a href="https://abusaid.netlify.app/" target="_blank">
-    <strong>🚀 View Live Demo</strong>
+  <a href="https://github.com/kusayvarde/developer-portfolio" target="_blank">
+    <strong>🚀 View the Repository</strong>
   </a>
 </p>
 
@@ -162,7 +170,7 @@ pnpm --version  # or npm --version
 ### 1. Fork and Clone the Repository
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/developer-portfolio.git
+git clone https://github.com/kusayvarde/developer-portfolio.git
 cd developer-portfolio
 ```
 
@@ -329,7 +337,7 @@ profile: "/your-image-name.png"; // or .jpg, .webp
 
 ### 🚀 Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/said7388/developer-portfolio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/kusayvarde/developer-portfolio)
 
 **Manual Deployment:**
 
@@ -350,7 +358,7 @@ profile: "/your-image-name.png"; // or .jpg, .webp
 
 ### 🌐 Deploy to Netlify
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/said7388/developer-portfolio)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kusayvarde/developer-portfolio)
 
 **Manual Deployment:**
 
@@ -581,13 +589,13 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## Support :coffee:
 
-- ⭐ [Star the repository](https://github.com/said7388/developer-portfolio/stargazers)
-- � [Report bugs](https://github.com/said7388/developer-portfolio/issues)
-- � [Suggest features](https://github.com/said7388/developer-portfolio/discussions)
+- ⭐ [Star the repository](https://github.com/kusayvarde/developer-portfolio/stargazers)
+- � [Report bugs](https://github.com/kusayvarde/developer-portfolio/issues)
+- � [Suggest features](https://github.com/kusayvarde/developer-portfolio/discussions)
 
 ---
 
-![GitHub stars](https://img.shields.io/github/stars/said7388/developer-portfolio?style=social)
-![GitHub forks](https://img.shields.io/github/forks/said7388/developer-portfolio?style=social)
-![GitHub issues](https://img.shields.io/github/issues/said7388/developer-portfolio)
-![GitHub license](https://img.shields.io/github/license/said7388/developer-portfolio)
+![GitHub stars](https://img.shields.io/github/stars/kusayvarde/developer-portfolio?style=social)
+![GitHub forks](https://img.shields.io/github/forks/kusayvarde/developer-portfolio?style=social)
+![GitHub issues](https://img.shields.io/github/issues/kusayvarde/developer-portfolio)
+![GitHub license](https://img.shields.io/github/license/kusayvarde/developer-portfolio)
