@@ -10,11 +10,5 @@ export const experiences = [
     title: "Research & Development Developer",
     company: "Growger",
     duration: "(Jul 2025 - Present)"
-  },
-  {
-    id: 3,
-    title: "Marketing Executive",
-    company: "Zekra Tasarım",
-    duration: "(Sep 2022 - Jul 2024)"
   }
 ]

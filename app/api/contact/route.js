@@ -14,17 +14,17 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Helper function to send a message via Telegram
-async function sendTelegramMessage(token, chat_id, message) {
-  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+// Helper function to send a message via WhatsApp (CallMeBot)
+async function sendWhatsAppMessage(phone, apikey, message) {
+  const url = 'https://api.callmebot.com/whatsapp.php';
   try {
-    const res = await axios.post(url, {
-      text: message,
-      chat_id,
+    const res = await axios.get(url, {
+      params: { phone, apikey, text: message },
+      timeout: 10000,
     });
-    return res.data.ok;
+    return res.status === 200;
   } catch (error) {
-    console.error('Error sending Telegram message:', error.response?.data || error.message);
+    console.error('Error sending WhatsApp message:', error.response?.data || error.message);
     return false;
   }
 };
@@ -71,35 +71,32 @@ export async function POST(request) {
   try {
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chat_id = process.env.TELEGRAM_CHAT_ID;
-
-    // Validate environment variables
-    if (!token || !chat_id) {
-      return NextResponse.json({
-        success: false,
-        message: 'Telegram token or chat ID is missing.',
-      }, { status: 400 });
-    }
+    const phone = process.env.WHATSAPP_PHONE;
+    const apikey = process.env.CALLMEBOT_APIKEY;
 
     const message = `New message from ${name}\n\nEmail: ${email}\n\nMessage:\n\n${userMessage}\n\n`;
 
-    // Send Telegram message
-    const telegramSuccess = await sendTelegramMessage(token, chat_id, message);
+    // Send WhatsApp message (skipped if not configured)
+    const whatsappSuccess = phone && apikey
+      ? await sendWhatsAppMessage(phone, apikey, message)
+      : false;
 
     // Send email
     const emailSuccess = await sendEmail(payload, message);
 
-    if (telegramSuccess && emailSuccess) {
+    // One delivered channel is enough to consider the message received, so a
+    // hiccup on CallMeBot's free relay doesn't show the visitor an error for a
+    // message that actually reached the inbox.
+    if (whatsappSuccess || emailSuccess) {
       return NextResponse.json({
         success: true,
-        message: 'Message and email sent successfully!',
+        message: 'Message sent successfully!',
       }, { status: 200 });
     }
 
     return NextResponse.json({
       success: false,
-      message: 'Failed to send message or email.',
+      message: 'Failed to send message.',
     }, { status: 500 });
   } catch (error) {
     console.error('API Error:', error.message);

@@ -62,7 +62,7 @@ My personal portfolio, built with **Next.js 16**, **React 19**, and **Tailwind C
 - ✅ **Blazing Fast Performance**: Leverages Next.js 16 server components and streaming
 - ✅ **App Router**: Uses the modern Next.js App Router architecture
 - ✅ **Easy Customization**: Simple data-driven configuration
-- ✅ **Contact Form**: Integrated email and Telegram notifications
+- ✅ **Contact Form**: Integrated email and WhatsApp notifications
 - ✅ **Blog Integration**: Automatically fetch posts from dev.to
 - ✅ **Dark Theme**: Beautiful gradient design with Lottie animations
 - ✅ **Docker Support**: Easy containerized deployment
@@ -98,7 +98,7 @@ This portfolio leverages the latest Next.js 16 and React 19 capabilities:
 | 🚀 **Projects**   | Showcase your best work with descriptions and links |
 | 🎓 **Education**  | Academic background and certifications              |
 | 📝 **Blog**       | Latest articles from dev.to (auto-fetched)          |
-| 📧 **Contact**    | Get in touch form with email/Telegram integration   |
+| 📧 **Contact**    | Get in touch form with email/WhatsApp integration   |
 
 ---
 
@@ -115,7 +115,7 @@ This portfolio leverages the latest Next.js 16 and React 19 capabilities:
 - [Deployment](#deployment-rocket)
 - [Tutorials](#tutorials-wrench)
   - [Gmail App Password Setup](#gmail-app-password-setup)
-  - [Create a Telegram Bot](#create-a-telegram-bot)
+  - [WhatsApp Notifications](#-whatsapp-notifications-callmebot)
   - [Fetching Blog from dev.to](#fetching-blog-from-devto)
 - [Packages Used](#packages-used-package)
 - [Contributing](#contributing-handshake)
@@ -263,9 +263,9 @@ NEXT_PUBLIC_GTM=GTM-XXXXXXX
 # Your deployed app URL
 NEXT_PUBLIC_APP_URL=https://your-domain.com
 
-# Telegram Bot Configuration (for contact form notifications)
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-TELEGRAM_CHAT_ID=your_chat_id_here
+# WhatsApp Configuration (for contact form notifications, via CallMeBot)
+WHATSAPP_PHONE=+905524761324
+CALLMEBOT_APIKEY=your_callmebot_api_key
 
 # Gmail Configuration (for contact form emails)
 GMAIL_PASSKEY=your_gmail_app_password
@@ -278,12 +278,12 @@ EMAIL_ADDRESS=your_email@gmail.com
 | --------------------- | -------- | -------------------------------------------- |
 | `NEXT_PUBLIC_GTM`     | No       | Google Tag Manager ID for analytics tracking |
 | `NEXT_PUBLIC_APP_URL` | Yes      | Your portfolio's public URL                  |
-| `TELEGRAM_BOT_TOKEN`  | No       | Token for Telegram bot notifications         |
-| `TELEGRAM_CHAT_ID`    | No       | Your Telegram chat ID for receiving messages |
+| `WHATSAPP_PHONE`      | No       | Your WhatsApp number, with country code      |
+| `CALLMEBOT_APIKEY`    | No       | CallMeBot API key for WhatsApp notifications |
 | `GMAIL_PASSKEY`       | No       | Gmail app password for email notifications   |
 | `EMAIL_ADDRESS`       | No       | Your Gmail address for sending emails        |
 
-> **Note**: Contact form features require either Telegram or Gmail configuration (or both).
+> **Note**: Contact form features require either WhatsApp or Gmail configuration (or both).
 
 ---
 
@@ -422,20 +422,31 @@ EMAIL_ADDRESS=your.email@gmail.com
 
 ---
 
-### 🤖 Create a Telegram Bot
+### 💬 WhatsApp Notifications (CallMeBot)
 
-1. Open Telegram and search for `@BotFather`
-2. Send `/newbot` command
-3. Set bot name and username (must end with `bot`)
-4. Copy the bot token
-5. Send a message to your bot
-6. Get chat ID from: `https://api.telegram.org/bot<BOT_TOKEN>/getUpdates`
-7. Add to `.env` file:
+Contact form submissions are forwarded to your personal WhatsApp via
+[CallMeBot](https://www.callmebot.com/blog/free-api-whatsapp-messages/), a free relay.
+
+1. Save CallMeBot's WhatsApp number to your phone contacts (the current number is
+   listed on the page linked above)
+2. Send it this exact message: `I allow callmebot to send me messages`
+3. Wait for the reply containing your API key (usually under a minute)
+4. Add to `.env` file:
 
 ```env
-TELEGRAM_BOT_TOKEN=123456789:ABCdefGHIjklMNOpqrsTUVwxyz
-TELEGRAM_CHAT_ID=123456789
+WHATSAPP_PHONE=+905524761324
+CALLMEBOT_APIKEY=123456
 ```
+
+`WHATSAPP_PHONE` must include the country code. Test the key directly in a browser:
+
+```
+https://api.callmebot.com/whatsapp.php?phone=+905524761324&text=test&apikey=123456
+```
+
+> **Note**: CallMeBot is a free third-party relay with no uptime guarantee, and message
+> content passes through their servers. Email delivery is independent, so the contact
+> form still reports success if the email is sent even when WhatsApp fails.
 
 ---
 
@@ -583,7 +594,7 @@ pnpm install
 - Verify Gmail App Password is correct (16 characters)
 - Check that 2-Step Verification is enabled on your Google account
 - Ensure `EMAIL_ADDRESS` matches the Gmail account
-- Test Telegram bot token and chat ID separately
+- Test the CallMeBot API key separately in a browser
 - Check browser console for error messages
 
 </details>

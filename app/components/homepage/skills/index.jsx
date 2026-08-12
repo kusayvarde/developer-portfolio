@@ -5,6 +5,25 @@ import { skillsImage } from "@/utils/skill-image";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
+// Fallback badge for skills that have no logo in skill-image.js
+// (MCP, Playwright, and the AI ones ship no SVG).
+function skillInitials(skill) {
+  const words = skill.split(' ');
+  const [first] = words;
+
+  // Acronym-led names read better keeping the acronym whole:
+  // "REST APIs" -> REST, "LLM APIs" -> LLM, rather than RA / LA.
+  if (words.length > 1 && first === first.toUpperCase() && first.length <= 4) {
+    return first;
+  }
+
+  if (words.length > 1) {
+    return words.slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+  }
+
+  return skill.length <= 3 ? skill.toUpperCase() : skill.slice(0, 2).toUpperCase();
+};
+
 function Skills() {
   return (
     <div id="skills" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
@@ -36,7 +55,10 @@ function Skills() {
           play={true}
           direction="left"
         >
-          {skillsData.map((skill, id) => (
+          {skillsData.map((skill, id) => {
+            const icon = skillsImage(skill)?.src;
+
+            return (
             <div className="w-36 min-w-fit h-fit flex flex-col items-center justify-center transition-all duration-500 m-3 sm:m-5 rounded-lg group relative hover:scale-[1.15] cursor-pointer"
               key={id}>
               <div className="h-full w-full rounded-lg border border-[#1f223c] bg-[#11152c] shadow-none shadow-gray-50 group-hover:border-violet-500 transition-all duration-500">
@@ -46,15 +68,21 @@ function Skills() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-3 p-6">
-                  <div className="h-8 sm:h-10">
-                    <Image
-                      src={skillsImage(skill)?.src}
-                      alt={skill}
-                      width={40}
-                      height={40}
-                      className="!h-full !w-auto rounded-lg"
-                      style={{ width: 'auto', height: 'auto' }}
-                    />
+                  <div className="h-8 sm:h-10 flex items-center justify-center">
+                    {icon ? (
+                      <Image
+                        src={icon}
+                        alt={skill}
+                        width={40}
+                        height={40}
+                        className="!h-full !w-auto rounded-lg"
+                        style={{ width: 'auto', height: 'auto' }}
+                      />
+                    ) : (
+                      <span className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-violet-500/60 bg-violet-500/10 text-xs sm:text-sm font-semibold text-violet-300">
+                        {skillInitials(skill)}
+                      </span>
+                    )}
                   </div>
                   <p className="text-white text-sm sm:text-lg">
                     {skill}
@@ -62,7 +90,8 @@ function Skills() {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </Marquee>
       </div>
     </div>
